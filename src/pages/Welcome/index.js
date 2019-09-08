@@ -16,6 +16,7 @@ export default class Welcome extends Component {
     state = {
         username: '',
         loading: false,
+        error: false,
     };
     saveUser = async username => {
         await AsyncStorage.setItem('@Githuber:user', username);
@@ -33,12 +34,11 @@ export default class Welcome extends Component {
             await this.saveUser(username);
             navigation.navigate('Repositories');
         } catch (err) {
-            this.setState({loading: false});
-            console.log('Usuáro inexistente');
+            this.setState({loading: false, error: true});
         }
     };
     render() {
-        const {username, loading} = this.state;
+        const {username, loading, error} = this.state;
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="light-content" />
@@ -47,7 +47,7 @@ export default class Welcome extends Component {
                     Para continuar precisamos que você informe sue usuário do
                     github
                 </Text>
-
+                {error && <Text style={styles.error}>Usuário inexistente</Text>}
                 <View style={styles.form}>
                     <TextInput
                         style={styles.input}

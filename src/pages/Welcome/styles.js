@@ -35,6 +35,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: metrics.basePadding,
     },
 
+    error: {
+        color: colors.danger,
+        marginTop: metrics.baseMargin,
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
+
     button: {
         backgroundColor: colors.primary,
         borderRadius: metrics.baseRadius,
