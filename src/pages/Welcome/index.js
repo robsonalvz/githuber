@@ -6,10 +6,9 @@ import {
     TextInput,
     TouchableOpacity,
     StatusBar,
-    AsyncStorage,
     ActivityIndicator,
+    AsyncStorage,
 } from 'react-native';
-
 import styles from './styles';
 import api from '../../services/api';
 export default class Welcome extends Component {
@@ -19,7 +18,7 @@ export default class Welcome extends Component {
         error: false,
     };
     saveUser = async username => {
-        await AsyncStorage.setItem('@Githuber:user', username);
+        await AsyncStorage.setItem('@Githuber:username', username);
     };
     checkUserExists = async username => {
         const user = await api.get(`/users/${username}`);
