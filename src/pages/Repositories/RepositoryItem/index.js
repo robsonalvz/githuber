@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from './style';
+import styles from './styles';
 
 const RepositoryItem = ({repository}) => (
     <View style={styles.container}>

@@ -9,12 +9,18 @@ export default class Repositories extends Component {
     state = {
         data: [],
         loading: true,
+        refreshing: false,
     };
     async componentDidMount() {
+        this.loadRepositories();
+    }
+    loadRepositories = async () => {
+        this.setState({refreshing: true});
         const username = await AsyncStorage.getItem('@Githuber:username');
         const {data} = await api.get(`users/${username}/repos`);
-        this.setState({data, loading: false});
-    }
+        this.setState({data, loading: false, refreshing: false});
+    };
+
     static navigationOptions = {
         tabBarIcon: ({tintColor}) => (
             <Icon name="list-alt" size={20} color={tintColor} />
@@ -23,19 +29,21 @@ export default class Repositories extends Component {
     renderListItem = ({item}) => <RepositoryItem repository={item} />;
 
     renderList = () => {
-        const {data} = this.state;
+        const {data, refreshing} = this.state;
         return (
             <FlatList
                 data={data}
                 keyExtractor={item => String(item.id)}
                 renderItem={this.renderListItem}
+                onRefresh={this.loadRepositories}
+                refreshing={refreshing}
             />
         );
     };
     render() {
         const {loading} = this.state;
         return (
-            <View>
+            <View style={styles.container}>
                 <Header title="Repositórios" />
                 {loading ? (
                     <ActivityIndicator style={styles.loading} />
