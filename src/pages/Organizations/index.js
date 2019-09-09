@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 
-import {View, AsyncStorage, FlatList, ActivityIndicator} from 'react-native';
+import {
+    View,
+    Text,
+    AsyncStorage,
+    FlatList,
+    ActivityIndicator,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from '../../components/Header';
 import OrganizationItem from './OrganizationItem';
 import api from '../../services/api';
 import styles from './styles';
-// import { Container } from './styles';
+
 export default class Organizations extends Component {
     state = {
         data: [],
@@ -14,12 +20,13 @@ export default class Organizations extends Component {
         refreshing: false,
     };
     async componentDidMount() {
-        this.loadRepositories();
+        this.loadOrgs();
     }
-    loadRepositories = async () => {
+    loadOrgs = async () => {
         this.setState({refreshing: true});
         const username = await AsyncStorage.getItem('@Githuber:username');
         const {data} = await api.get(`users/${username}/orgs`);
+        console.log(data);
         this.setState({data, loading: false, refreshing: false});
     };
     static navigationOptions = {
@@ -27,7 +34,7 @@ export default class Organizations extends Component {
             <Icon name="building" size={20} color={tintColor} />
         ),
     };
-    renderListItem = ({item}) => <OrganizationItem repository={item} />;
+    renderListItem = ({item}) => <OrganizationItem org={item} />;
 
     renderList = () => {
         const {data, refreshing} = this.state;
@@ -46,6 +53,9 @@ export default class Organizations extends Component {
         return (
             <View style={styles.container}>
                 <Header title="Organizações" />
+
+                {/* <Text>{this.state.data}</Text> */}
+
                 {loading ? (
                     <ActivityIndicator style={styles.loading} />
                 ) : (
