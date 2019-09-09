@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {AsyncStorage} from 'react-native';
 
 import createNavigator from './routes';
-// import { Container } from './styles';
 
 export default class App extends Component {
     state = {

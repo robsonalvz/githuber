@@ -6,8 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     StatusBar,
-    ActivityIndicator,
     AsyncStorage,
+    ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 import api from '../../services/api';
@@ -36,7 +36,7 @@ export default class Welcome extends Component {
         try {
             await this.checkUserExists(username);
             await this.saveUser(username);
-            navigation.navigate('Repositories');
+            navigation.navigate('User');
         } catch (err) {
             this.setState({loading: false, error: true});
         }
