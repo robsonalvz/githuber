@@ -35,7 +35,7 @@ export default class Organizations extends Component {
         ),
     };
     renderListItem = ({item}) => <OrganizationItem org={item} />;
-
+    renderEmpty = () => <Text>Usuário não possui nenhuma organização</Text>;
     renderList = () => {
         const {data, refreshing} = this.state;
         return (
